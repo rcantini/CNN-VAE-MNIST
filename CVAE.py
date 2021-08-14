@@ -39,7 +39,7 @@ def sampling(args):
     return z_mean + K.exp(0.5 * z_log_var) * epsilon
 
 
-def crate_compiled_model(x_train):
+def create_compiled_model(x_train):
     os.makedirs("plots", exist_ok=True)
     os.makedirs("save", exist_ok=True)
     # VAE model = encoder + decoder
@@ -60,7 +60,7 @@ def crate_compiled_model(x_train):
     # instantiate encoder model
     encoder = Model(inputs, [z_mean, z_log_var, z], name='encoder')
     encoder.summary()
-    plot_model(encoder, to_file='plots/encoder.png', show_shapes=True)
+    #plot_model(encoder, to_file='plots/encoder.png', show_shapes=True)
     # build decoder model
     latent_inputs = layers.Input(shape=(latent_dim,), name='z_sampling')
     x = layers.Dense(64, activation='relu')(latent_inputs)
@@ -74,12 +74,12 @@ def crate_compiled_model(x_train):
     # instantiate decoder model
     decoder = Model(latent_inputs, outputs, name='decoder')
     decoder.summary()
-    plot_model(decoder, to_file='plots/decoder.png', show_shapes=True)
+    #plot_model(decoder, to_file='plots/decoder.png', show_shapes=True)
     # instantiate VAE model
     outputs = decoder(encoder(inputs)[2])
     vae = Model(inputs, outputs, name='CVAE')
     vae.summary()
-    plot_model(vae, to_file='plots/CVAE.png', show_shapes=True)
+    #plot_model(vae, to_file='plots/CVAE.png', show_shapes=True)
     models = (encoder, decoder)
     # VAE loss = xent_loss + kl_loss
     reconstruction_loss = binary_crossentropy(inputs, outputs)
@@ -142,7 +142,7 @@ if __name__ == '__main__':
     x_train, y_train = load_data()
     data = (x_train, y_train)
     # train the autoencoder
-    vae, models = crate_compiled_model(x_train)
+    vae, models = create_compiled_model(x_train)
     vae.fit(x_train,x_train,
             epochs=epochs,
             batch_size=batch_size)
