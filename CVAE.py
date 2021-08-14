@@ -39,7 +39,7 @@ def sampling(args):
     return z_mean + K.exp(0.5 * z_log_var) * epsilon
 
 
-def create_compiled_model(x_train):
+def create_compiled_model():
     os.makedirs("plots", exist_ok=True)
     os.makedirs("save", exist_ok=True)
     # VAE model = encoder + decoder
@@ -136,13 +136,13 @@ def plot_results(models, data, batch_size=128):
     plt.savefig(filename)
     plt.show()
 
-
+'''
 if __name__ == '__main__':
     # load MNIST data
     x_train, y_train = load_data()
     data = (x_train, y_train)
     # train the autoencoder
-    vae, models = create_compiled_model(x_train)
+    vae, models = create_compiled_model()
     vae.fit(x_train,x_train,
             epochs=epochs,
             batch_size=batch_size)
@@ -153,3 +153,4 @@ if __name__ == '__main__':
     vae.save_weights('save/cvae_mnist.h5')
     # plot labels and MNIST digits as function of 2-D latent vector
     plot_results(models, data, batch_size=batch_size)
+'''
