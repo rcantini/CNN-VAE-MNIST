@@ -1,6 +1,6 @@
 import numpy as np
 from keras import backend as K
-from VariationalAutoencoders import CVAE
+import CVAE
 from flask import Flask, render_template, request
 
 # network parameters
