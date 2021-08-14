@@ -16,23 +16,27 @@ vae, models = CVAE.create_compiled_model(x_train)
 (encoder, decoder) = models
 # load weights
 vae.load_weights('save/cvae_mnist.h5')
-# fixed means and log_vars
-# -- latent space inspection
-z_mean, z_log_var, _ = encoder.predict(x_train, batch_size=batch_size)
-z0_mean = z_mean[:, 0]
-z1_mean = z_mean[:, 1]
-z0_logvar = z_log_var[:, 0]
-z1_logvar = z_log_var[:, 1]
-means = np.zeros((10, 2))
-log_vars = np.zeros((10, 2))
-for i in range(0, 10):
-    indexes = y_train == i
-    means[i] = [np.median(z0_mean[indexes]), np.median(z1_mean[indexes])]
-    log_vars[i] = [np.median(z0_logvar[indexes]), np.median(z1_logvar[indexes])]
-# -- improvement
-means[4] = [-3.2, 0.65]
-log_vars[4] = [-10, -10]
-means[5] = [2.1, 0.55]
+# fixed means and log_vars from latent space inspection
+means = [[ 0.0737659,   2.08392119],
+ [ 1.02552891, -0.96927363],
+ [-0.24872708,  0.32876885],
+ [ 0.20523334,  0.1215527 ],
+ [-3.2,  0.65],
+ [ 2.1,  0.55],
+ [-0.19239137,  0.83706224],
+ [-1.3523798,  -1.29118562],
+ [ 0.59725612, -0.16651063],
+ [-0.5174467,  -0.50842798]]
+log_vars = [[-6.5435915,  -5.83439541],
+ [-6.61758423, -6.32054329],
+ [-6.985816,   -8.72492027],
+ [-7.50982904, -8.93076611],
+ [-9.70335436, -9.74416351],
+ [-6.42503643, -8.40911388],
+ [-6.1917448,  -7.79825306],
+ [-5.25109243, -5.8355608 ],
+ [-6.42724133, -7.7093935 ],
+ [-5.72645664, -6.8247509 ]]
 # init app
 print(__name__)
 app = Flask(__name__)
