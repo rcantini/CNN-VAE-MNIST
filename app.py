@@ -9,10 +9,8 @@ latent_dim = 2
 epochs = 80
 image_shape = (28, 28, 1)
 original_dim = image_shape[0] * image_shape[1]
-
-# load MNIST data
-x_train, y_train = CVAE.load_data()
-vae, models = CVAE.create_compiled_model(x_train)
+# create model
+vae, models = CVAE.create_compiled_model()
 (encoder, decoder) = models
 # load weights
 vae.load_weights('save/cvae_mnist.h5')
