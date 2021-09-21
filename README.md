@@ -13,6 +13,4 @@ Have fun! :laughing::laughing:
 
 <iframe src="https://play-with-mnist.herokuapp.com/" width="100%" height="708px"></iframe>
 
-
-
 For further information, check out my blog post: https://riccardo-cantini.netlify.app/post/bert_text_classification/
